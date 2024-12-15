@@ -1,0 +1,125 @@
+/* General Styles */
+.map-container {
+  display: flex;
+  flex-direction: column;  /* Stack map and controls vertically by default */
+  height: 100vh;  /* Full height of the screen */
+  overflow: hidden;
+}
+
+.map-controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 350px;  /* Control panel width */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.map-controls input,
+.map-controls select,
+.map-controls button {
+  width: 100%; /* Make input fields and button full width */
+}
+
+.find-route-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.find-route-btn:hover {
+  background-color: #45a049;
+}
+
+/* Map Styles */
+#map {
+  flex-grow: 1;
+  height: 100%;  /* Map takes full height available */
+  z-index: 1; /* Ensure map is below controls */
+}
+
+/* Media Queries for Responsiveness */
+
+/* On smaller screens */
+@media (max-width: 768px) {
+  .map-container {
+    flex-direction: column-reverse;  /* Stack controls below map for smaller screens */
+  }
+
+  .map-controls {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9); /* More visible on small screens */
+    padding: 20px;
+    max-width: none;  /* Remove width restriction */
+    width: 100%;
+    box-sizing: border-box;
+    bottom: 0;
+    z-index: 100;
+  }
+
+  .map-controls input,
+  .map-controls select,
+  .map-controls button {
+    margin-bottom: 10px;  /* Add some space at the bottom of each field */
+  }
+
+  /* Ensure map doesn't get hidden behind controls */
+  #map {
+    height: 60vh;  /* Map height reduced to leave space for controls */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .map-controls {
+    padding: 15px;
+  }
+
+  .find-route-btn {
+    padding: 12px;
+    font-size: 18px;
+  }
+
+  #map {
+    height: 55vh;  /* Further reduce map height for very small screens */
+  }
+}
+
+/* On larger screens, prevent the map from being overlapped by controls */
+@media (min-width: 769px) {
+  .map-container {
+    flex-direction: row;  /* Arrange map and controls side by side */
+  }
+
+  .map-controls {
+    position: absolute;  /* Keep controls on the left */
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    width: 300px;
+    max-width: 300px;  /* Control panel width */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    padding: 15px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Prevent controls from overlapping zoom buttons */
+  #map {
+    height: 100vh;  /* Full screen map height */
+    margin-left: 300px;  /* Leave space for controls */
+  }
+}

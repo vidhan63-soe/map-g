@@ -1,0 +1,64 @@
+<div class="map-container">
+  <div class="map-controls">
+    <!-- Input Method Selection -->
+    <div class="form-check">
+      <input 
+        class="form-check-input" 
+        type="radio" 
+        [(ngModel)]="inputMethod" 
+        [value]="'manual'" 
+        id="manualInput">
+      <label class="form-check-label" for="manualInput">
+        Enter Coordinates
+      </label>
+    </div>
+    <div class="form-check">
+      <input 
+        class="form-check-input" 
+        type="radio" 
+        [(ngModel)]="inputMethod" 
+        [value]="'map'" 
+        id="mapInput">
+      <label class="form-check-label" for="mapInput">
+        Select on Map
+      </label>
+    </div>
+
+    <!-- Manual Input Form -->
+    <div *ngIf="inputMethod === 'manual'" class="mt-3">
+      <div class="input-container">
+        <label>Origin Latitude</label>
+        <input type="number" [(ngModel)]="originLat" placeholder="Origin Latitude">
+      </div>
+      <div class="input-container">
+        <label>Origin Longitude</label>
+        <input type="number" [(ngModel)]="originLng" placeholder="Origin Longitude">
+      </div>
+      <div class="input-container">
+        <label>Destination Latitude</label>
+        <input type="number" [(ngModel)]="destLat" placeholder="Destination Latitude">
+      </div>
+      <div class="input-container">
+        <label>Destination Longitude</label>
+        <input type="number" [(ngModel)]="destLng" placeholder="Destination Longitude">
+      </div>
+    </div>
+
+    <!-- Search History -->
+    <div class="input-container mt-3">
+      <label for="historySelect">Select Past Search</label>
+      <select 
+        class="form-control" 
+        id="historySelect" 
+        (change)="selectFromHistory($event)">
+        <option *ngFor="let history of searchHistory; let i = index" [value]="i">
+          {{ history.origin }} → {{ history.destination }}
+        </option>
+      </select>
+    </div>
+
+    <button class="find-route-btn" (click)="calculateRoute()">Find Route</button>
+  </div>
+
+  <div id="map"></div>
+</div>
